@@ -1,6 +1,7 @@
 package openai
 
 import (
+	"fmt"
 	"net/http"
 	"testing"
 )
@@ -8,7 +9,7 @@ import (
 func TestImages(t *testing.T) {
 
 	openai := NewClient(http.DefaultClient, "token")
-	query := "Draw the golang gopher logo in pink instead of blue"
+	query := "Illustrate a multi-panel comic with a jewish guy who is a chinese spy tricking his friends to sign up for chinese spyware in under the guise of a free egg foamer"
 
 	t.Run("Should return N number of iamges for given query", func(t *testing.T) {
 
@@ -29,6 +30,10 @@ func TestImages(t *testing.T) {
 
 		if got != want {
 			t.Errorf("Got %d, but wanted %d", got, want)
+		}
+
+		for i, img := range images.Data {
+			fmt.Printf("IMG #%d: %s\n", i, img.URL)
 		}
 	})
 
